@@ -1,0 +1,70 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+!.env.example
+
+# Custom exclusions for repository cleanliness
+migrated_prompt_history/
+prompt_history/
+*.log
+.DS_Store
+
+# Firebase
+.firebase/
+firebase-debug.log*
+.firebaserc
+
+# Apps Script (Optional local dev files)
+.clasp.json
+build/
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+
+
+
+# Environment files
+
+.env.local
+.env.*.local
+
+
+
+*.gs
+googleAppsScript.gs
+
+# Optional sensitive files
+serviceAccountKey.json
+firebase-adminsdk*.json
+
+.firebase
+
+Thumbs.db
+
+# Firebase
+firebase-debug.log
+.firestore
+
+# Build outputs
+build
+.next

@@ -1,0 +1,210 @@
+{
+  "entities": {
+    "Profile": {
+      "title": "Profile Data",
+      "description": "User profile and tagline information",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "greeting": { "type": "string" },
+        "tagline": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "isOpenToWork": { "type": "boolean" },
+        "position": { "type": "string" },
+        "organization": { "type": "string" },
+        "department": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name"]
+    },
+    "About": {
+      "title": "About Data",
+      "description": "Biographical information",
+      "type": "object",
+      "properties": {
+        "text1": { "type": "string" },
+        "text2": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Contact": {
+      "title": "Contact Data",
+      "description": "Social links and contact info",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "email": { "type": "string" },
+        "linkedin": { "type": "string" },
+        "github": { "type": "string" },
+        "leetcode": { "type": "string" },
+        "instagram": { "type": "string" },
+        "quoteText": { "type": "string" },
+        "quoteAuthor": { "type": "string" },
+        "additionalLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "url": { "type": "string" },
+              "icon": { "type": "string" }
+            }
+          }
+        },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Headings": {
+      "title": "Section Headings",
+      "description": "Custom titles and subtexts for portfolio sections",
+      "type": "object",
+      "properties": {
+        "about": { "type": "string" },
+        "aboutSub": { "type": "string" },
+        "skills": { "type": "string" },
+        "skillsSub": { "type": "string" },
+        "tools": { "type": "string" },
+        "toolsSub": { "type": "string" },
+        "experience": { "type": "string" },
+        "experienceSub": { "type": "string" },
+        "certificates": { "type": "string" },
+        "certificatesSub": { "type": "string" },
+        "projects": { "type": "string" },
+        "projectsSub": { "type": "string" },
+        "codingProfiles": { "type": "string" },
+        "codingProfilesSub": { "type": "string" },
+        "education": { "type": "string" },
+        "educationSub": { "type": "string" },
+        "resumes": { "type": "string" },
+        "resumesSub": { "type": "string" },
+        "contact": { "type": "string" },
+        "contactSub": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "CollectionItems": {
+      "title": "Collection Wrapper",
+      "description": "Wraps a list of items for bulk updates",
+      "type": "object",
+      "properties": {
+        "items": { "type": "array", "items": { "type": "object" } },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "CodingStats": {
+      "title": "Coding Stats",
+      "description": "Real-time coding activity data",
+      "type": "object",
+      "properties": {
+        "stats": { "type": "object" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Analytics": {
+      "title": "Site Analytics",
+      "description": "Visitor and view tracking",
+      "type": "object",
+      "properties": {
+        "total_views": { "type": "number" },
+        "unique_visitors": { "type": "number" },
+        "returning": { "type": "number" },
+        "total_sessions": { "type": "number" },
+        "avg_session_duration": { "type": "number" },
+        "device_desktop": { "type": "number" },
+        "device_mobile": { "type": "number" },
+        "device_tablet": { "type": "number" },
+        "views_current_month": { "type": "number" },
+        "views_last_month": { "type": "number" },
+        "last_active": { "type": "string", "format": "date-time" }
+      }
+    },
+    "DailyTraffic": {
+      "title": "Daily Traffic",
+      "description": "Daily view counts",
+      "type": "object",
+      "properties": {
+        "views": { "type": "number" },
+        "uniques": { "type": "number" },
+        "date": { "type": "string", "format": "date" }
+      }
+    },
+    "InteractionStats": {
+      "title": "Interaction Statistics",
+      "description": "Click tracking counts",
+      "type": "object",
+      "properties": {
+        "counts": { "type": "object" },
+        "lastInteraction": { "type": "string", "format": "date-time" }
+      }
+    },
+    "TechStats": {
+      "title": "Technology Statistics",
+      "description": "Browser and OS distribution",
+      "type": "object",
+      "properties": {
+        "os": { "type": "object" },
+        "browsers": { "type": "object" },
+        "screens": { "type": "object" },
+        "lastUpdate": { "type": "string", "format": "date-time" }
+      }
+    },
+    "GeoStats": {
+      "title": "Geographic Statistics",
+      "description": "Timezone and language distribution",
+      "type": "object",
+      "properties": {
+        "timezones": { "type": "object" },
+        "languages": { "type": "object" },
+        "lastUpdate": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Message": {
+      "title": "Contact Message",
+      "description": "Form submission from users",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "HealthTest": {
+      "title": "System Health Test",
+      "description": "Verification document for connectivity",
+      "type": "object",
+      "properties": {
+        "lastChecked": { "type": "string", "format": "date-time" },
+        "status": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "portfolio_settings/profile": { "schema": "Profile", "description": "Profile settings" },
+    "portfolio_settings/about": { "schema": "About", "description": "About me settings" },
+    "portfolio_settings/contact": { "schema": "Contact", "description": "Contact info settings" },
+    "portfolio_settings/headings": { "schema": "Headings", "description": "Section headings settings" },
+    "portfolio_collections/{collectionId}": { "schema": "CollectionItems", "description": "Bulk data for projects, skills, etc. (Small collections)" },
+    "portfolio_collections/{collectionId}/items/{itemId}": { "schema": "object", "description": "Individual items for large collections like certificates or projects" },
+    "coding_stats/live_data": { "schema": "CodingStats", "description": "Live coding profile stats" },
+    "coding_profiles/{platformId}": { "schema": "object", "description": "Per-platform coding statistics (cached)" },
+    "users/{userId}/profiles/{platformId}": { "schema": "object", "description": "User-specific coding profile data" },
+    "users/{userId}/analytics/main": { "schema": "Analytics", "description": "Admin specific analytics view" },
+    "users/{userId}/analytics/interactions": { "schema": "InteractionStats", "description": "Admin specific interaction tracking" },
+    "users/{userId}/settings/autoSync": { "schema": "object", "description": "User sync preferences" },
+    "site_analytics/main_stats": { "schema": "Analytics", "description": "Aggregate visitor statistics" },
+    "daily_traffic/{dateId}": { "schema": "DailyTraffic", "description": "Daily traffic logs" },
+    "site_analytics/interactions": { "schema": "InteractionStats", "description": "Global interaction counts" },
+    "site_analytics/top_sources": { "schema": "object", "description": "Traffic source tracking" },
+    "site_analytics/top_content": { "schema": "object", "description": "Most viewed projects and profiles" },
+    "site_analytics/geo": { "schema": "GeoStats", "description": "Geographical distribution" },
+    "site_analytics/tech": { "schema": "TechStats", "description": "Browser and OS analytics" },
+    "messages/{messageId}": { "schema": "Message", "description": "Contact form submissions" },
+    "system_health/connection_test": { "schema": "HealthTest", "description": "Firestore connectivity heartbeat" }
+  }
+}

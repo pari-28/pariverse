@@ -1,0 +1,172 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- PHASE 3: PRIMITIVES ---
+    function isSignedIn() { return request.auth != null; }
+    
+    // Identity verification for the owner/admin
+    function isAdmin() { 
+      return isSignedIn() 
+        && request.auth.token.email == 'YOUR_ADMIN_EMAIL_HERE';
+    }
+    
+    function isOwner(userId) { 
+      return isSignedIn() && request.auth.uid == userId; 
+    }
+    
+    function isValidId(id) { 
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+    
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    // --- VALIDATION BLUEPRINTS ---
+    
+    function isValidMessage(data) {
+      return data.keys().hasAll(['name', 'email', 'message', 'createdAt', 'read', 'replied'])
+        && data.name is string && data.name.size() <= 100
+        && data.email is string && data.email.size() <= 100
+        && data.message is string && data.message.size() <= 10000
+        && data.read is bool
+        && data.replied is bool
+        && data.createdAt == request.time
+        && (!('metadata' in data) || data.metadata is map);
+    }
+
+    function isValidAnalytics(data) {
+      return (data.keys().hasAny(['total_views', 'total_sessions', 'unique_visitors', 'returning', 'last_active']))
+        && (!('total_views' in data) || data.total_views is number)
+        && (!('total_sessions' in data) || data.total_sessions is number)
+        && (!('unique_visitors' in data) || data.unique_visitors is number)
+        && (!('returning' in data) || data.returning is number)
+        && (!('device_desktop' in data) || data.device_desktop is number)
+        && (!('device_mobile' in data) || data.device_mobile is number)
+        && (!('device_tablet' in data) || data.device_tablet is number)
+        && (!('views_current_month' in data) || data.views_current_month is number)
+        && (!('views_last_month' in data) || data.views_last_month is number)
+        && (!('last_active' in data) || data.last_active == request.time);
+    }
+
+    function isValidTechAnalytics(data) {
+      return (data.keys().hasAny(['os', 'browsers', 'screens', 'lastUpdate']))
+        && (!('os' in data) || data.os is map)
+        && (!('browsers' in data) || data.browsers is map)
+        && (!('screens' in data) || data.screens is map)
+        && (!('lastUpdate' in data) || data.lastUpdate == request.time);
+    }
+
+    function isValidGeoAnalytics(data) {
+      return (data.keys().hasAny(['timezones', 'languages', 'lastUpdate']))
+        && (!('timezones' in data) || data.timezones is map)
+        && (!('languages' in data) || data.languages is map)
+        && (!('lastUpdate' in data) || data.lastUpdate == request.time);
+    }
+
+    function isValidInteractionAnalytics(data) {
+      return (data.keys().hasAny(['counts', 'lastInteraction']))
+        && (!('counts' in data) || data.counts is map)
+        && (!('lastInteraction' in data) || data.lastInteraction == request.time);
+    }
+
+    function isValidTrafficAnalytics(data) {
+      return (data.keys().hasAny(['views', 'uniques', 'date']))
+        && (!('views' in data) || data.views is number)
+        && (!('uniques' in data) || data.uniques is number);
+    }
+
+    // --- THE FORTRESS ---
+
+    // 1. Connectivity Test
+    match /system_health/connection_test {
+      allow read: if true;
+      allow write: if isAdmin() || isSignedIn();
+    }
+
+    // 2. Portfolio Settings & Collections
+    match /portfolio_settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(settingId);
+    }
+
+    match /portfolio_collections/{collectionId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(collectionId);
+      
+      // Subcollection for individual items to avoid document size limit (1MB)
+      match /items/{itemId} {
+        allow read: if true;
+        allow write: if isAdmin() && isValidId(collectionId) && isValidId(itemId);
+      }
+    }
+
+    // 2.1 Content Collections
+    match /experience/{docId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(docId);
+    }
+    match /education/{docId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(docId);
+    }
+    match /about/{docId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(docId);
+    }
+    match /skills/{docId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(docId);
+    }
+    match /resumes/{docId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(docId);
+    }
+
+    // 3. Messages - PII Isolation
+    match /messages/{messageId} {
+      allow create: if isValidId(messageId); // Relaxed for better reliability
+      allow read, update, delete: if isAdmin();
+    }
+
+    // 4. Coding Profile Stats
+    match /coding_stats/{docId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(docId);
+    }
+
+    match /coding_profiles/{docId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(docId);
+    }
+
+    // 5. User Specific Area
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+      
+      match /profiles/{profileId} {
+        allow read, write: if isOwner(userId);
+      }
+      match /analytics/{docId} {
+        allow read, write: if isOwner(userId);
+      }
+      match /settings/{docId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // 6. Generic Analytics System
+    match /site_analytics/{docId} {
+      allow read, write: if true; // Public analytics
+    }
+
+    match /daily_traffic/{dateId} {
+      allow read, write: if true; // Public analytics
+    }
+  }
+}

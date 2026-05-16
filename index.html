@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pari Sangamnerkar | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scrollbar-gutter: stable;
+      }
+      
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #4b5563;
+        border-radius: 4px;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* STACKING ORDER MANAGEMENT - Scoped to Mobile/Tablet to keep Desktop original */
+      @media (max-width: 1024px) {
+        body.detail-view-active nav,
+        body.detail-view-active .theme-switcher-ui,
+        body.detail-view-active:not(.chatbot-active) .ai-chatbot-ui,
+        body.detail-view-active:not(.dashboard-active) #mobile-dashboard-trigger,
+        body.detail-view-active .admin-toggle-ui,
+        body.detail-view-active .analytics-ui {
+          z-index: 0 !important;
+          pointer-events: none !important;
+          opacity: 0.1 !important; 
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          filter: blur(4px);
+        }
+      }
+
+      /* Tablet Landscape - Analytics UI Position Adjustment */
+      @media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+        .analytics-ui {
+          top: 6rem !important; /* Move below the top dashboard panel (Navbar) */
+          left: 1.5rem !important;
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 0.75rem !important;
+        }
+      }
+
+      /* Locked Background Interaction and Scrolling */
+      body.detail-view-active {
+        overflow: hidden !important;
+        touch-action: none;
+        overscroll-behavior: none !important;
+        -webkit-overflow-scrolling: auto !important;
+      }
+
+      /* 1. Prevent background interaction without breaking visibility */
+      body.detail-view-active #root > main,
+      body.detail-view-active #root > nav,
+      body.detail-view-active #root > section {
+        pointer-events: none !important;
+        user-select: none !important;
+      }
+
+      /* On mobile and tablet, we still want to keep some specific stacking behaviors */
+      @media (max-width: 1024px) {
+        /* STACKING ORDER MANAGEMENT - Scoped to Mobile/Tablet to keep Desktop original */
+        body.detail-view-active nav,
+        body.detail-view-active [class*="z-[1000]"],
+        body.detail-view-active [class*="z-[1100]"],
+        body.detail-view-active [class*="z-[2000]"],
+        body.detail-view-active [class*="z-[3000]"],
+        body.detail-view-active [class*="z-[5000]"],
+        body.dashboard-active [class*="z-[130]"],
+        body.dashboard-active [class*="z-[140]"],
+        body.chatbot-active [class*="z-[150]"] {
+          z-index: 100000 !important;
+          pointer-events: auto !important;
+          touch-action: auto !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+
+        /* Landscape specific sizing for modals to fit viewport */
+        @media (orientation: landscape) and (max-height: 500px) {
+          body.detail-view-active [class*="z-[150]"]:not(.ai-chatbot-ui),
+          body.detail-view-active [class*="z-[1000]"] > div:last-child:not(.compact-modal),
+          body.detail-view-active [class*="z-[1100]"] > div:last-child:not(.compact-modal),
+          body.detail-view-active [class*="z-[2000]"] > div:last-child:not(.compact-modal),
+          body.detail-view-active [class*="z-[3000]"] > div:last-child:not(.compact-modal) {
+            max-height: 85svh !important;
+            max-width: 85svw !important;
+            margin: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            box-shadow: 0 0 0 100vmax rgba(0,0,0,0.7) !important;
+          }
+
+          /* Compact Modals - Experience, Projects, Certificates, About expanded */
+          body.detail-view-active div.compact-modal {
+            max-height: 75svh !important;
+            max-width: 280px !important;
+            margin: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            box-shadow: 0 0 0 100vmax rgba(0,0,0,0.7) !important;
+            overflow: auto !important;
+          }
+          
+          body.chatbot-active .ai-chatbot-ui:not(button) {
+            position: fixed !important;
+            inset: 0 !important;
+            margin: auto !important;
+            height: 92svh !important;
+            width: 90svw !important;
+            max-width: 480px !important;
+            max-height: 90svh !important;
+            min-height: 0 !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+          }
+
+          body.chatbot-active button.ai-chatbot-ui {
+            width: 3rem !important; /* 12 in tailwind */
+            height: 3rem !important;
+            font-size: 1.5rem !important; /* 2xl in tailwind */
+            bottom: 1rem !important; /* 4 in tailwind */
+            right: 1rem !important;
+          }
+
+          /* Header area adjustments for mobile landscape */
+          body.chatbot-active .ai-chatbot-ui:not(button) > div:first-child {
+            padding: 0.625rem !important; /* 2.5 in tailwind */
+          }
+          body.chatbot-active .ai-chatbot-ui:not(button) > div:first-child > div:first-child {
+            gap: 0.5rem !important; /* 2 in tailwind */
+          }
+          body.chatbot-active .ai-chatbot-ui:not(button) > div:first-child div.rounded-full {
+             width: 1.75rem !important; /* 7 in tailwind */
+             height: 1.75rem !important;
+             font-size: 0.875rem !important; /* baseish */
+          }
+          body.chatbot-active .ai-chatbot-ui:not(button) h3 {
+            font-size: 0.75rem !important; /* xs */
+          }
+
+          /* Body padding/spacing adjustments */
+          body.chatbot-active .ai-chatbot-ui:not(button) > div:nth-child(2) {
+            padding: 0.625rem !important;
+            gap: 0.5rem !important;
+          }
+          body.chatbot-active .ai-chatbot-ui:not(button) > div:nth-child(2) > div > div {
+            padding: 0.625rem !important;
+            font-size: 0.6875rem !important; /* 11px */
+          }
+
+          /* Input area adjustments */
+          body.chatbot-active .ai-chatbot-ui:not(button) > div:last-child {
+            padding: 0.625rem !important;
+          }
+          body.chatbot-active .ai-chatbot-ui:not(button) input {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+            font-size: 0.6875rem !important;
+          }
+          body.chatbot-active .ai-chatbot-ui:not(button) button span {
+            transform: scale(0.9) rotate(45deg) !important;
+          }
+        }
+        
+        /* Tablet Vertical and Phone Vertical specific sizing */
+        @media (orientation: portrait) {
+           /* Phones */
+           @media (max-width: 639px) {
+             body.detail-view-active [class*="z-[1000]"] > div:last-child:not(.compact-modal),
+             body.detail-view-active [class*="z-[1100]"] > div:last-child:not(.compact-modal),
+             body.detail-view-active [class*="z-[2000]"] > div:last-child:not(.compact-modal) {
+               max-width: 90svw !important;
+               max-height: 80svh !important;
+               margin: auto !important;
+             }
+             /* Compact Modals - Phone */
+             body.detail-view-active div.compact-modal {
+               max-width: 78svw !important;
+               max-height: 70svh !important;
+               margin: auto !important;
+             }
+
+             body.chatbot-active .ai-chatbot-ui:not(button) {
+               height: 55svh !important;
+               width: 90svw !important;
+               bottom: 2svh !important;
+               left: 5svw !important;
+             }
+           }
+           /* Tablets */
+           @media (min-width: 640px) and (max-width: 1024px) {
+             body.detail-view-active [class*="z-[1000]"] > div:last-child:not(.compact-modal),
+             body.detail-view-active [class*="z-[1100]"] > div:last-child:not(.compact-modal),
+             body.detail-view-active [class*="z-[2000]"] > div:last-child:not(.compact-modal) {
+               max-width: 75svw !important;
+               max-height: 75svh !important;
+               margin: auto !important;
+             }
+             /* Compact Modals - Tablet */
+             body.detail-view-active div.compact-modal {
+               max-width: 58svw !important;
+               max-height: 62svh !important;
+               margin: auto !important;
+             }
+
+             body.dashboard-active .ai-dashboard-panel {
+               width: 350px !important;
+               max-width: 85svw !important;
+               overscroll-behavior: contain !important;
+             }
+
+             body.dashboard-active {
+               overflow: hidden !important;
+               height: 100vh !important;
+               width: 100vw !important;
+               position: fixed !important;
+             }
+
+             body.chatbot-active .ai-chatbot-ui:not(button) {
+               width: 300px !important;
+               max-width: 75svw !important;
+               height: 440px !important;
+               max-height: 50svh !important;
+               min-height: 300px !important;
+               bottom: 24px !important;
+               right: 24px !important;
+               margin: 0 !important;
+             }
+
+             body.chatbot-active .ai-chatbot-ui:not(button) > div:first-child {
+               padding: 0.75rem !important;
+             }
+
+             body.chatbot-active .ai-chatbot-ui:not(button) h3 {
+               font-size: 0.875rem !important;
+             }
+
+             body.chatbot-active .ai-chatbot-ui:not(button) input {
+               padding-top: 0.625rem !important;
+               padding-bottom: 0.625rem !important;
+               font-size: 0.8125rem !important;
+             }
+           }
+        }
+
+        /* 3. Global Layers - Cosmic Transitions, Cursor Glow, Toasts */
+        .cosmic-transition-layer,
+        .cursor-glow-layer,
+        .custom-cursor-layer,
+        [class*="z-[9999]"],
+        [class*="z-[10000]"] {
+          z-index: 999999 !important;
+          pointer-events: none !important;
+          touch-action: none !important;
+        }
+
+        /* Special case for persistent tool triggers */
+        body.detail-view-active:not(.chatbot-active) .ai-chatbot-ui,
+        body.detail-view-active:not(.dashboard-active) #mobile-dashboard-trigger,
+        body.detail-view-active:not(.analytics-active) .analytics-ui {
+          pointer-events: none !important;
+          opacity: 0.1 !important;
+        }
+
+        /* Allow internal scrolling and interactions for inputs/textareas in modals */
+        body.detail-view-active [class*="overflow-y-auto"],
+        body.detail-view-active [class*="overflow-auto"],
+        body.detail-view-active textarea,
+        body.detail-view-active input,
+        body.detail-view-active button:not(#mobile-dashboard-trigger):not(.ai-chatbot-ui) {
+          pointer-events: auto !important;
+          touch-action: auto !important;
+          -webkit-overflow-scrolling: touch !important;
+          overscroll-behavior: contain !important;
+        }
+      }
+
+      /* Unified Cosmic Base */
+      @keyframes core-zoom {
+        0% { transform: scale(0.8); opacity: 0; filter: blur(20px); }
+        50% { transform: scale(1); opacity: 1; filter: blur(0px); }
+        100% { transform: scale(1.5); opacity: 0; filter: blur(30px); }
+      }
+
+      /* Refined Theme 1: 3D Bubble Depth */
+      @keyframes bubble-3d {
+        0% { transform: translateZ(-500px) scale(0); opacity: 0; filter: blur(10px); }
+        40% { opacity: 0.8; filter: blur(2px); }
+        100% { transform: translateZ(1000px) scale(2.5); opacity: 0; filter: blur(20px); }
+      }
+
+      /* Theme 2: Solar (LOCKED - NO CHANGES) */
+      @keyframes solar-spin {
+        0% { transform: rotate(0deg) scale(0); opacity: 0; }
+        50% { transform: rotate(180deg) scale(1.5); opacity: 0.6; }
+        100% { transform: rotate(360deg) scale(3); opacity: 0; }
+      }
+
+      /* Refined Theme 3: Missile Motion */
+      @keyframes missile-travel {
+        0% { transform: scale(0.5) translateZ(-1000px); opacity: 0; }
+        40% { transform: scale(1) translateZ(0); opacity: 1; }
+        100% { transform: scale(1.5) translateZ(800px); opacity: 0; }
+      }
+      @keyframes travel-streak {
+        0% { transform: scaleY(0.1) translateY(100%); opacity: 0; }
+        50% { transform: scaleY(1) translateY(0); opacity: 0.3; }
+        100% { transform: scaleY(0.1) translateY(-100%); opacity: 0; }
+      }
+
+      /* Refined Theme 4: Galaxy Star Motion */
+      @keyframes galaxy-warp {
+        0% { transform: translateZ(-800px) scale(0.1); opacity: 0; }
+        10% { opacity: 1; }
+        100% { transform: translateZ(800px) scale(4) scaleX(8); opacity: 0; }
+      }
+
+      /* Theme 5: Blackhole Vortex Optimization (Staggered Paint) */
+      @keyframes vortex-spin-optimized {
+        0% { transform: rotate(0deg) scale(0.5); opacity: 0; filter: blur(10px); }
+        10% { opacity: 1; transform: rotate(108deg) scale(3.5); filter: blur(0); }
+        90% { opacity: 1; filter: blur(0); }
+        100% { transform: rotate(1080deg) scale(0); opacity: 0; filter: blur(35px); }
+      }
+      @keyframes particle-inward-optimized {
+        0% { transform: rotate(0deg) translateX(450px) scale(0); opacity: 0; }
+        5% { opacity: 1; transform: rotate(72deg) translateX(400px) scale(1.5); }
+        90% { opacity: 1; }
+        100% { transform: rotate(-1440deg) translateX(0) scale(0); opacity: 0; }
+      }
+      @keyframes ring-draw {
+        0% { stroke-dashoffset: 2000; opacity: 0; }
+        15% { opacity: 1; }
+        100% { stroke-dashoffset: 0; opacity: 1; }
+      }
+
+      /* Animation Classes */
+      .animate-core-zoom { animation: core-zoom 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      .animate-bubble-3d { animation: bubble-3d 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards; }
+      .animate-missile-travel { animation: missile-travel 0.8s cubic-bezier(0.15, 0, 0.15, 1) forwards; }
+      .animate-travel-streak { animation: travel-streak 0.6s ease-in forwards; }
+      .animate-galaxy-warp { animation: galaxy-warp 0.85s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      
+      /* Theme 5 Hardware Accelerated Classes */
+      .animate-vortex-spin { 
+        animation: vortex-spin-optimized 2.4s cubic-bezier(0.2, 0.4, 0.7, 1) forwards; 
+        will-change: transform, opacity;
+      }
+      .animate-particle-inward { 
+        animation: particle-inward-optimized 2.4s cubic-bezier(0.2, 0.4, 0.7, 1) forwards; 
+        will-change: transform, opacity;
+      }
+      .animate-ring-draw {
+        animation: ring-draw 2.4s cubic-bezier(0.2, 0.4, 0.7, 1) forwards;
+        will-change: stroke-dashoffset, opacity;
+      }
+      .animate-solar-spin { animation: solar-spin 0.9s ease-in-out forwards; }
+      
+      @media (prefers-reduced-motion: reduce) {
+        .animate-core-zoom, .animate-bubble-3d, .animate-missile-travel, .animate-travel-streak, .animate-galaxy-warp, .animate-vortex-spin, .animate-particle-inward, .animate-solar-spin, .animate-ring-draw {
+          animation: none !important;
+          opacity: 0;
+        }
+      }
+
+     </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "firebase-functions": "https://esm.sh/firebase-functions@^7.0.5",
+    "firebase-admin": "https://esm.sh/firebase-admin@^13.6.0",
+    "axios": "https://esm.sh/axios@^1.13.4",
+    "nodemailer": "https://esm.sh/nodemailer@^7.0.13"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

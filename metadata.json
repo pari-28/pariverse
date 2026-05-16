@@ -1,0 +1,9 @@
+{
+  "name": "Pari Portfolio",
+  "description": "A premium, interactive developer portfolio featuring multiple themes, AI chatbot, and LinkedIn-style animations for a Computer Science student.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": []
+}
