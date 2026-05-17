@@ -1,4 +1,4 @@
-# Pari Sangamnerkar | Developer Portfolio
+# Pari Portfolio
 
 A high-performance, feature-rich developer portfolio built to showcase personal projects, technical experience, and real-time coding achievements. This project integrates a suite of modern technologies to create a dynamic, AI-enhanced visitor experience with a robust backend management system.
 
