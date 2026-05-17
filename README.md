@@ -134,7 +134,7 @@ The project follows a full-stack architecture optimized for low-latency and scal
 *   **Animations**: Framer Motion (`motion/react`)
 *   **Database**: Firebase Cloud Firestore (NoSQL)
 *   **Authentication**: Firebase Auth (Google OAuth)
-*   **AI Support**: Google Gemini 1.5 Flash
+*   **AI Support**: Google Gemini API
 *   **Backend Automation**: Google Apps Script
 *   **PDF Processing**: PDF.js / React-PDF for high-fidelity certificate previews
 
