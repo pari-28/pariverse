@@ -140,30 +140,30 @@ The project follows a full-stack architecture optimized for low-latency and scal
 
 ---
 
-# 🛠️ Tech Stack Flow
+## 🛠️ Tech Stack Flow
 
-## Frontend
+### Frontend
 - React.js
 - TypeScript
 - Tailwind CSS
 - Framer Motion
 - Recharts / Chart.js
 
-## Backend & Services
+### Backend & Services
 - Node.js + Express
 
-## Database & Auth
+### Database & Auth
 - Firebase Firestore
 - Firebase Authentication
 - Firebase Analytics
 
-## APIs & Integrations
+### APIs & Integrations
 - GitHub API
 - LeetCode APIs
 - Codeforces APIs
 - Google Gemini API
 
-## Utilities & Tools
+### Utilities & Tools
 - Git & GitHub
 - PDF.js (Live resume preview)
 - REST APIs
