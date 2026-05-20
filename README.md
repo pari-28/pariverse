@@ -245,6 +245,38 @@ The project follows a full-stack architecture optimized for low-latency and scal
 
 ---
 
+## 📸 Screenshots
+
+| 🏠 Home — Light Theme | 🌑 Home — Dark Theme |
+|---|---|
+| ![](README-assets/home-light.png) | ![](README-assets/home-dark.png) |
+
+| 👩‍💻 About Section | 🛠️ Skills Dashboard |
+|---|---|
+| ![](README-assets/about-section.png) | ![](README-assets/skills-section.png) |
+
+| 🚀 Projects Showcase | 📊 Live Coding Profiles & Sync |
+|---|---|
+| ![](README-assets/projects-section.png) | ![](README-assets/coding-profiles.png) |
+
+| 📈 Real-Time Coding Architecture Graph | 🔥 Consistency Contribution Heatmap |
+|---|---|
+| ![](README-assets/coding-graph.png) | ![](README-assets/consistency-graph.png) |
+
+| 📄 Resume Management | 📡 Real-Time Analytics Dashboard |
+|---|---|
+| ![](README-assets/resume-section.png) | ![](README-assets/analytics-dashboard-top.png) |
+
+| 📊 Interaction & Visitor Insights | 📬 Contact & Social Integration |
+|---|---|
+| ![](README-assets/analytics-dashboard-bottom.png) | ![](README-assets/contact-section-light.png) |
+
+| 🤖 AI Chatbot Assistant | 🔐 Admin Portal |
+|---|---|
+| ![](README-assets/chatbot.png) | ![](README-assets/admin-login.png) |
+
+---
+
 # 🏗️ System Workflow
 
 ```text
