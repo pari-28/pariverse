@@ -173,6 +173,78 @@ The project follows a full-stack architecture optimized for low-latency and scal
 
 ---
 
+## 📸 Screenshots
+
+### 🏠 Home — Light Theme
+![Home Light](README-assets/home-light.png)
+
+---
+
+### 🌑 Home — Dark Theme
+![Home Dark](README-assets/home-dark.png)
+
+---
+
+### 👩‍💻 About Section
+![About](README-assets/about-section.png)
+
+---
+
+### 🛠️ Skills Dashboard
+![Skills](README-assets/skills-section.png)
+
+---
+
+### 🚀 Projects Showcase
+![Projects](README-assets/projects-section.png)
+
+---
+
+### 📊 Live Coding Profiles & Sync
+![Coding Profiles](README-assets/coding-profiles.png)
+
+---
+
+### 📈 Real-Time Coding Architecture Graph
+![Coding Graph](README-assets/coding-graph.png)
+
+---
+
+### 🔥 Consistency Contribution Heatmap
+![Consistency Graph](README-assets/consistency-graph.png)
+
+---
+
+### 📄 Resume Management
+![Resume Section](README-assets/resume-section.png)
+
+---
+
+### 📡 Real-Time Analytics Dashboard
+![Analytics Dashboard](README-assets/analytics-dashboard-top.png)
+
+---
+
+### 📊 Interaction & Visitor Insights
+![Analytics Insights](README-assets/analytics-dashboard-bottom.png)
+
+---
+
+### 📬 Contact & Social Integration
+![Contact Section](README-assets/contact-section-light.png)
+
+---
+
+### 🤖 AI Chatbot Assistant
+![Chatbot](README-assets/chatbot.png)
+
+---
+
+### 🔐 Admin Portal
+![Admin Login](README-assets/admin-login.png)
+
+---
+
 # 🏗️ System Workflow
 
 ```text
