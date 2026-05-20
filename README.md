@@ -261,20 +261,49 @@ Sensitive credentials and configuration values are managed through environment v
 # 📁 Project Structure
 
 ```text
-├── components/          # React components organized by UI section
-│   ├── AIChatbot.tsx    # Gemini AI integration and chat interface
-│   ├── Analytics.tsx    # Admin analytics visualization dashboard
-│   ├── CodingProfiles.tsx # Real-time stats fetching and heatmap logic
-│   └── ...              # Modular sections (Projects, Skills, etc.)
-├── hooks/               # Custom React hooks (useScrollLock, etc.)
-├── public/              # Static assets and media
-├── .env.example         # Reference for required environment variables
-├── analyticsService.ts  # Core visitor tracking and Firestore sync logic
-├── geminiService.ts     # AI model configuration and system prompt
-├── googleAppsScript.gs  # Script for Firestore-to-Spreadsheet synchronization
-├── index.tsx            # App entry point and Firebase initialization
-├── server.ts            # Express server (Vite middleware / production serving)
-└── firestore.rules      # Hardened security rules for database access
+pari-portfolio/
+│
+├── components/                     # React UI components
+│   ├── AIChatbot.tsx               # Gemini AI chat interface
+│   ├── Analytics.tsx               # Analytics visualization dashboard
+│   ├── CodingProfiles.tsx          # Live coding stats & heatmaps
+│   └── ...                         # Projects, Skills, Experience, etc.
+│
+├── hooks/                          # Custom React hooks
+│
+├── public/                         # Static assets and media
+│
+├── README-assets/                  # README screenshots and visuals
+│
+├── .env.example                    # Environment variable template
+├── .firebaserc                     # Firebase project configuration
+├── .gitignore                      # Ignored files and secrets
+│
+├── analyticsService.ts             # Visitor tracking & analytics logic
+├── App.tsx                         # Main application component
+├── cloudFunctions.ts               # Cloud/database interaction helpers
+├── constants.tsx                   # Shared constants and configuration
+│
+├── firebase-applet-config.json     # Firebase frontend configuration
+├── firebase-blueprint.json         # Firebase project blueprint
+├── firebase.json                   # Firebase hosting configuration
+├── firestore.rules                 # Firestore security rules
+│
+├── geminiService.ts                # Gemini AI chatbot configuration
+├── googleAppsScript.gs             # Spreadsheet synchronization script
+│
+├── index.html                      # Root HTML template
+├── index.tsx                       # React entry point & Firebase setup
+│
+├── metadata.json                   # Project metadata
+├── package.json                    # Dependencies and scripts
+├── package-lock.json               # Dependency lock file
+│
+├── server.ts                       # Express/Vite server configuration
+├── tsconfig.json                   # TypeScript configuration
+├── types.ts                        # Shared TypeScript types
+├── vite-env.d.ts                   # Vite environment types
+└── vite.config.ts                  # Vite build configuration
 ```
 
 ---
