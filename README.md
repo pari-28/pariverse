@@ -8,7 +8,25 @@ A high-performance, feature-rich developer portfolio built to showcase personal 
 
 This portfolio serves as more than just a static bio. It is a live dashboard of my engineering journey, featuring real-time statistics synchronization from top coding platforms, a custom-built analytics engine, and an AI-powered chatbot to assist recruiters and visitors.
 
+---
+
+## 🔗 Live Portfolio
+
 🌐 **Live Demo:** https://pari-portfolio.web.app
+
+## 🎥 Full Platform Walkthrough
+
+This demo showcases:
+
+- User Mode
+- Admin Mode
+- Real-time coding profile synchronization
+- Analytics dashboard
+- AI chatbot integration
+- Google Sheets inbox workflow
+- Responsive desktop/tablet/mobile experience
+
+[▶ Watch Full Demo Video](https://drive.google.com/file/d/13rkfmtPR2j2ppR-nbxn95txoQMUQKD6N/view?usp=sharing)
 
 ---
 
